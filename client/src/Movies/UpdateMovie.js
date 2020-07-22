@@ -7,7 +7,6 @@ const initialItem = {
     title: '',
     director: '',
     metascore: '',
-    stars: [] //  STARS IS AN ARRAY! 
 }
 
 
@@ -15,9 +14,6 @@ const UpdateMovie = () => {
     const location = useLocation();
     const params = useParams();
     const { push } = useHistory();
-
-    // array value state
-    const [starArr, setStarArr] = useState('')
 
     // string value state
     const [movie, setMovie] = useState(initialItem);
@@ -38,9 +34,7 @@ const UpdateMovie = () => {
         })
     }
 
-    const changeStarHandler = event => {
-        
-    }
+   
 
     const handleSubmit = event => { 
         event.preventDefault()
@@ -71,13 +65,6 @@ const UpdateMovie = () => {
                 onChange={changeFormHandler}
                 placeholder='MetaScore'
                 value={movie.metascore}
-                />
-                <input 
-                type='text'
-                name='stars'
-                onchange={changeStarHandler}
-                placeholder='Stars'
-                value={movie.stars}
                 />
                 <button>Submit Changes</button>
             </form>
