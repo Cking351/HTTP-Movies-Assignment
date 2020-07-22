@@ -12,7 +12,7 @@ const initialItem = {
 
 const UpdateMovie = props => {
     const location = useLocation();
-    const params = useParams();
+    const { id } = useParams();
     const { push } = useHistory();
 
     // string value state
@@ -20,11 +20,11 @@ const UpdateMovie = props => {
     
 
     useEffect(() => {
-        if(location?.state){
+        if(location.state){
             setMovie(location.state)
         }else{
             axios
-                .get(`http://localhost:5000/api/movies/${params.id}`)
+                .get(`http://localhost:5000/api/movies/${id}`)
                 .then(res => setMovie(res.data))        
                 .catch(err => console.log(err))
         }
@@ -41,18 +41,17 @@ const UpdateMovie = props => {
 
     const handleSubmit = event => {
         event.preventDefault()
-        axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
-            .then(() => {
-                axios
-                    .get("http://localhost:5000/api/movies")
-                    .then(res => {
-                        props.setMovie(res.data)
-                        push(`/movies/${movie.id}`)
-                    })
-                    .catch(err => console.log(err.response));
+
+        axios.put(`http://localhost:5000/api/movies/${id}`, movie)
+            .then(res => {
+                setMovie(initialItem)
+                push(`/movies/${id}`)
+                window.location.reload()
             })
-            .catch(err => console.log(err))
+            .catch(error => console.log(error))
     }
+
+
     return (
         <div>
             <h2>Update Movie</h2>
